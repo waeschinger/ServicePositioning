@@ -173,7 +173,9 @@ function initMap(ori, desti,idi) {
                         zeitAlt += parseInt(resultAlt[k].duration.value);
                     }
                     var mittZeitAlt = (zeitAlt/anzahlDestinations)/60;
+                    var gesamtZeitMinAlt = parseInt(zeitAlt/60);
                     console.log(mittZeitAlt);
+                    var gesamtDistKMAlt = parseInt(distanzAlt/1000);
                     var mittDistanzAlt = (distanzAlt/anzahlDestinations)/1000;
                     console.log(mittDistanzAlt);
 
@@ -197,7 +199,7 @@ function initMap(ori, desti,idi) {
                         var kilomGes = parseInt(distanzKummuliert / 1000);
                         var avgKM = parseInt(kilomGes / anzahlDestinations);
                         var avgTime = parseInt(minutenGes / anzahlDestinations)
-                        distanzArray.push({"Durchschnittsdistanz":avgKM,"Durchschnittszeit":avgTime,"Positionsbezeichnung":ortsAuszeichnung[i-1],"Ort":originList[i]});
+                        distanzArray.push({"Durchschnittsdistanz":avgKM,"Durchschnittszeit":avgTime,"Positionsbezeichnung":ortsAuszeichnung[i-1],"Ort":originList[i],"GesamtStrecke":kilomGes,"GesamtZeit":minutenGes});
                         outputDiv.innerHTML += "Durchschnittsdistanz="+avgKM + "km         Durchschnittszeit="+ avgTime+" Minuten zum Ziel"+'<br>'+"<br>";
                         distanzKummuliert = 0;
                         zeitKummuliert = 0;
@@ -213,15 +215,23 @@ function initMap(ori, desti,idi) {
                     minTime.sort(function(a,b) {
                         return a.Durchschnittszeit - b.Durchschnittszeit;
                     });
+
+
                     console.log(minDist);
                     console.log(minDist[0]);
                     var zeitErsparnisDistmin = parseInt(mittZeitAlt - minDist[0].Durchschnittszeit);
                     var zeitErsparnisZeitmin = parseInt(mittZeitAlt - minTime[0].Durchschnittszeit);
                     var distanzErsparnisZeitmin = parseInt(mittDistanzAlt - minTime[0].Durchschnittsdistanz);
                     var distanzErsparnisDistmin = parseInt(mittDistanzAlt - minDist[0].Durchschnittsdistanz);
-
+                    var zeitGesErsparnisZeitMin= parseInt(gesamtZeitMinAlt - minTime[0].GesamtZeit);
+                    var distanzGesErsparnisZeitMin = parseInt(gesamtDistKMAlt - minTime[0].GesamtStrecke);
+                    var zeitGesErsparnisDistMin= parseInt(gesamtZeitMinAlt - minDist[0].GesamtZeit);
+                    var distanzGesErsparnisDistMin= parseInt(gesamtDistKMAlt - minDist[0].GesamtStrecke);
                     outputDiv.innerHTML += "Die kürzeste Durchschnittsdistanz beträgt: "+ minDist[0].Durchschnittsdistanz+" km und das liegt in "+ minDist[0].Positionsbezeichnung+" und der Ort heißt:  " + minDist[0].Ort+"."  + "<br>"+ "Dort hat man eine durchschnittliche Zeitersparnis von ca. "+ zeitErsparnisDistmin +" Minuten und eine durchschnittliche Distanzverrinngerung von "+ distanzErsparnisDistmin+ " km." + "<hr>";
                     outputDiv.innerHTML += "Die kürzeste durchschnittliche Fahrtzeit beträgt: "+ minTime[0].Durchschnittszeit + " Minuten und der ideale Ort dafür ist die Nummer "+ minTime[0].Positionsbezeichnung+" : "+minTime[0].Ort+"." + "<br>"+"Dort hat man eine durchschnittliche Zeitersparnis von ca. "+ zeitErsparnisZeitmin +" Minuten und eine durchschnittliche Distanzverrinngerung von "+ distanzErsparnisZeitmin+ " km." + "<hr>";
+                    outputDiv.innerHTML += "<p style='font-family:verdana'>"+"Alte Gesamtdistanz: "+ gesamtDistKMAlt+ " km.    Alte Gesamtzeit: "+ gesamtZeitMinAlt+" Minuten"+"</p>"+"<hr>";
+                    outputDiv.innerHTML += "Neue Gesamtdistanz bei der kürzesten Strecke: "+ minDist[0].GesamtStrecke +" km.    Neue Gesamtzeit bei der kürzesten Strecke: "+ minDist[0].GesamtZeit+"<br>"+ "Die Zeitersparnis beträgt: "+zeitGesErsparnisDistMin+" Minuten und die Streckenersparnis beträgt: "+ distanzGesErsparnisDistMin+" km."+"<hr>";
+                    outputDiv.innerHTML += "Neue Gesamtdistanz bei der schnellsten Strecke: "+ minTime[0].GesamtStrecke +" km.    Neue Gesamtzeit bei der schnellsten Strecke: "+ minTime[0].GesamtZeit+"<br>"+ "Die Zeitersparnis beträgt: "+zeitGesErsparnisZeitMin+" Minuten und die Streckenersparnis beträgt: "+ distanzGesErsparnisZeitMin+" km."+"<hr>";"<hr>" ;
                 }
 
             });
@@ -236,10 +246,10 @@ function deleteMarkers(markersArray) {
 
 }
 
-function initmap() {
+/*function initmap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 51.234, lng: 13.2323},
         zoom: 5
 });
 }
-
+*/

@@ -4,7 +4,8 @@
     <head>
         <title>Test für Matrix Distance API</title>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Berechnung optimaler Positionen für Störfahrzeuge">
+        <meta name="viewport" content="width=device-width, initial-scale=2">
         <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,15 +38,16 @@
             #right-panel i {
                 font-size: 12px;
             }
-            distanzoutput {
+            #distanzoutput {
 
                 border : 2px #dd7465;
                 border-radius: 5px;
             }
             textarea.lolli {
 
-                text-align: justify;
+                cols:25;
                 border-radius: 5px;
+                margin: 20px;
             }
             p.center{
                 text-align: center;
@@ -54,11 +56,37 @@
 
             ;
             }
-            h2.header2{
-
-
+            h2{
+                display: block;
+                text-align: center;
+                padding: 16px;
             }
-
+            article.ergebnisse {
+                margin-right: 400px;
+                border-right: 1px solid gray;
+                padding: 1em;
+                overflow: hidden;
+            }
+            section{
+                width: 50%;
+            }
+            input.eingabe{
+                width: 400px;
+                height: 30px;
+                border-radius: 5px;
+                margin-left: 16px;
+            }
+            div.container {
+                width: 100%;
+                border: 1px solid gray;
+            }
+            div.map {
+               float:right;
+                max-width: 390px;
+                height:100%;
+                margin: 0;
+                padding: 1em;
+            }
 
         </style>
 
@@ -67,43 +95,40 @@
 <header>
 
     <h1><p class="center">Distance Matrix<br /><small>Berechnung des idealen Standorts</small></p></h1>
-    <div id="output"></div>
-</header>
-<div id="right-panel">
-    <div id="inputs">
-        <p class="center" id="distanzoutput" cols="70" rows="20">
 
-        </p>
-    </div>
-    <div id="map" style='width: 100%; height: 400px;'></div>
-    <div id="output" padding="1em"></div>
-</div>
+</header>
+
 <article>
+
+            <legend>Startposition</legend>
+            <div>
+            <input class="eingabe" type="text" id="alterStartpunkt" name="Ort" value="Südstraße, Köln, Deutschland" >
+            <button class="btn btn-success" onclick="calculateBestPosition()" id="add-destination" style="text-align:center"> Daten auswerten </button>
+            <div class="input-group-btn" style="text-align: center">
+            </div>
+                </div>
+
+            <br>
+
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <h2>Origin</h2>
 
             <!--Texfeld zum einfügen der Daten. -->
             <div>
          <p class="center">
-                <textarea class="lolli" id="startpositionen" cols="70" rows="20" placeholder="Input Destinations">36	51.210	6.423
+                <textarea class="lolli" id="startpositionen" cols="30" rows="20" placeholder="Input Destinations">36	51.210	6.423
 34	51.305	6.523
 93	51.400	6.623
 152	51.495	6.723</textarea>
             </p>
             </div>
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button class="btn btn-success" onclick="calculateBestPosition()" id="add-destination">Und Los! </button>
-                </div>
 
-
-            </div>
             </div>
             <h2>Destination</h2>
             <div>
                 <p class="center">
-                <textarea class="lolli" id="ziel" cols="70" rows="20" placeholder="Input">1	51.123	6.815
+                <textarea class="lolli" id="ziel" cols="30" rows="20" placeholder="Input">1	51.123	6.815
 2	50.934	6.835
 3	51.125	6.815
 4	51.216	6.699
@@ -126,27 +151,19 @@
             <br/>
     <div class="row">
         <div class="col-md-12">
-            <form action="action_page.php">
-                <fieldset>
-                    <legend>Startposition</legend>
 
-                    <input type="text" id="alterStartpunkt" name="Ort" value="Südstraße, Köln, Deutschland" style="width: 400px; border-radius: 5px">
-                    <br>
-                </fieldset>
-            </form>
             <h3>Ergebnisse</h3>
             <hr>
-             <thead id="table-head">  <div id="output"></div>
-        </thead>
-        </div>
-                <tbody id="table-body">
-                <tr><td><div id="output"></div>
-    </div></td></tr>
-                </tbody>
-    </div>
+
     <p id="demo"></p>
 </article>
-<button class="btn btn-success" id="MapButton" onclick="initmap()"> Drück wenn du dich traust?!  </button>
+<div class="container">
+    <article class="ergebnisse">
+    <div id="output"></div>
+    </article>
+    <div id="map" class="map"></div>
+</div>
+
 <footer>
 
     <script src="util.js"></script>
