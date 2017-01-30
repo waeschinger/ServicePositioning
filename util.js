@@ -51,18 +51,30 @@ function addOldpoint(eingabe) {
 
     function addOrigins(eingabe) {
     var eintrag = document.getElementById(eingabe).value;
-    eintrag = eintrag.replace(/\t/g, ';');
+	eintrag = eintrag.replace(/\t/g, ';');
     zeilen = eintrag.split("\n");
     var sets = [];
 
     for (var i = 0; zeilen.length > i; i++) {
-        var b = zeilen[i].split(";");
+        var b = zeilen[i].split(",");
         sets.push(b);
 
     }
     return sets;
 }
+function addOrigins2(eingabe) {
+    var eintrag = document.getElementById(eingabe).value;
+    eintrag = eintrag.replace(/\t/g, ',');
+    zeilen = eintrag.split("\n");
+    var sets = [];
 
+    for (var i = 0; zeilen.length > i; i++) {
+        var b = zeilen[i].split(",");
+        sets.push(b);
+
+    }
+    return sets;
+}
 function alpha(setter) {
         var startpunkte = [];
         var sets2 = setter;
