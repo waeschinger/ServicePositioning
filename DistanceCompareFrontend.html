@@ -102,8 +102,8 @@
 <article>
 
             <legend>Startposition</legend>
-            <div>
-            <input class="eingabe" type="text" id="alterStartpunkt" name="Ort" value="Südstraße, Köln, Deutschland" >
+            <div style="text-align:center">
+            <input class="eingabe" type="text" id="alterStartpunkt" name="Ort" value="HBF, Neuss, Deutschland" >
             <button class="btn btn-success" onclick="calculateBestPosition()" id="add-destination" style="text-align:center"> Daten auswerten </button>
             <div class="input-group-btn" style="text-align: center">
             </div>
@@ -113,20 +113,21 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h2>Origin</h2>
+            <h2>möglicher Störfahrzeugparkplatz</h2>
 
             <!--Texfeld zum einfügen der Daten. -->
             <div>
          <p class="center">
-                <textarea class="lolli" id="startpositionen" cols="45" rows="10" placeholder="Input Destinations">05158024-S-K-ST-00027,51.2295714,6.8079454
-05158024-S-K-ST-00264,51.2590159,6.9607753
-05158024-S-K-ST-00010,51.2590174,6.9653773
-05158024-S-K-ST-00046,51.2601054,6.9644008</textarea>
+                <textarea class="lolli" id="startpositionen" cols="45" rows="10" placeholder="Input Destinations">Garage Neuss 1,51.0622602,6.8215136
+Garage Neuss 2,51.1854778,6.6922771
+Garage Neuss 3,51.0961468,6.8404988
+Garage Neuss 4,51.1222100,6.7733194
+Garage Neuss 5,51.2194100,6.6557300</textarea>
             </p>
             </div>
 
             </div>
-            <h2>Destination</h2>
+            <h2>Störfälle</h2>
             <div>
                 <p class="center">
                 <textarea class="lolli" id="ziel" cols="45" rows="20" placeholder="Input">05158024-S-K-ST-00355,51.2583600,6.9714600
