@@ -212,7 +212,7 @@ function initMap(ori, desti,idi) {
                         var avgKM = parseInt(kilomGes / anzahlDestinations);
                         var avgTime = parseInt(minutenGes / anzahlDestinations)
                         distanzArray.push({"Durchschnittsdistanz":avgKM,"Durchschnittszeit":avgTime,"Positionsbezeichnung":ortsAuszeichnung[i-1],"Ort":originList[i],"GesamtStrecke":kilomGes,"GesamtZeit":minutenGes});
-                        outputDiv.innerHTML += "In "+ortsAuszeichnung[i-1]+" liegt die Durchschnittsdistanz bei: "+avgKM + "km         Durchschnittszeit="+ avgTime+" Minuten zum Ziel"+'<br>'+"<br>";
+                        outputDiv.innerHTML += "In "+originList[i]+" liegt die Durchschnittsdistanz bei: "+avgKM + "km und die Durchschnittszeit="+ avgTime+" Minuten zum Ziel"+'<br>'+"<br>";
                         distanzKummuliert = 0;
                         zeitKummuliert = 0;
 
