@@ -19,9 +19,12 @@ function calculateBestPosition() {
 
     var neueOrigins = addOrigins("startpositionen");
     // die alte Position wird eingefügt und als String ausgelesen
-    var alterPos = addOldpoint("alterStartpunkt");
+    var alterPos = addOrigins("alterStartpunkt");
     console.log(alterPos);
+	console.log(neueOrigins);
+	neueOrigins.unshift(alterPos[0]);
     //Alpha ermöglicht den Übergang zu einem vollständigen Array der Origins
+	console.log(neueOrigins);
     origins = alpha(neueOrigins);
     //hier werden die Sationsnamen getrennt erfasst um sie im Anschluss, also nach der Distance Matrixberechnung wieder auszugeben
     idOrte = beta(neueOrigins);
@@ -29,7 +32,7 @@ function calculateBestPosition() {
     //hier wird ein Array mit den Destinationen erstellt und im anschluss durch alpha verfeinert
     var neueDestinations = addOrigins("ziel");
     destinations = alpha(neueDestinations);
-    origins.unshift(alterPos);
+    
     console.log(origins);
     anzahlDestinations = destinations.length;
     initMap(origins,destinations,idOrte);
@@ -56,7 +59,7 @@ function addOldpoint(eingabe) {
     var sets = [];
 
     for (var i = 0; zeilen.length > i; i++) {
-        var b = zeilen[i].split(",");
+        var b = zeilen[i].split(";");
         sets.push(b);
 
     }
@@ -155,7 +158,7 @@ function initMap(ori, desti,idi) {
                     outputDiv.innerHTML = '';
                     deleteMarkers(markersArray);
 
-                    var showGeocodedAddressOnMap = function (asDestination) {
+                   /* var showGeocodedAddressOnMap = function (asDestination) {
                         var icon = asDestination ? destinationIcon : originIcon;
                         return function (results, status) {
                             if (status === google.maps.GeocoderStatus.OK) {
@@ -168,21 +171,21 @@ function initMap(ori, desti,idi) {
                             } else {
                                 alert('Geocode was not successful due to: ' + status);
                             }
-                        };
-                    };
+                       };
+                    };*/ 
                     var distanzKummuliert = 0;
                     var zeitKummuliert = 0;
                     var distanzArray = [];
-                    var distanzAlt =0;
+                    var distanzAlt = 0;
                     var zeitAlt= 0;
-                    //Ermittlung der durchshcnittliochen Distanz für den Originalstandort
+                    //Ermittlung der durchschnittlichen Distanz für den Originalstandort
                     var resultAlt = response.rows[0].elements;
                     for(var k=0 ; k < resultAlt.length; k++){
                        // geocoder.geocode({'address': destinationList[k]},
                          //   showGeocodedAddressOnMap(false));
                         //
-                        distanzAlt += parseInt(resultAlt[k].distance.value);
-                        zeitAlt += parseInt(resultAlt[k].duration.value);
+                       distanzAlt += parseInt(resultAlt[k].distance.value);
+                       zeitAlt += parseInt(resultAlt[k].duration.value);
                     }
                     var mittZeitAlt = (zeitAlt/anzahlDestinations)/60;
                     var gesamtZeitMinAlt = parseInt(zeitAlt/60);
@@ -241,7 +244,7 @@ function initMap(ori, desti,idi) {
                     var distanzGesErsparnisDistMin= parseInt(gesamtDistKMAlt - minDist[0].GesamtStrecke);
                     outputDiv.innerHTML += "Die kürzeste Durchschnittsdistanz beträgt: "+ minDist[0].Durchschnittsdistanz+" km und das liegt in "+ minDist[0].Positionsbezeichnung+" und der Ort heißt:  " + minDist[0].Ort+"."  + "<br>"+ "Dort hat man eine durchschnittliche Zeitersparnis von ca. "+ zeitErsparnisDistmin +" Minuten und eine durchschnittliche Distanzverrinngerung von "+ distanzErsparnisDistmin+ " km." + "<hr>";
                     outputDiv.innerHTML += "Die kürzeste durchschnittliche Fahrtzeit beträgt: "+ minTime[0].Durchschnittszeit + " Minuten und der ideale Ort dafür ist die Nummer "+ minTime[0].Positionsbezeichnung+" : "+minTime[0].Ort+"." + "<br>"+"Dort hat man eine durchschnittliche Zeitersparnis von ca. "+ zeitErsparnisZeitmin +" Minuten und eine durchschnittliche Distanzverrinngerung von "+ distanzErsparnisZeitmin+ " km." + "<hr>";
-                    outputDiv.innerHTML += "<p style='font-family:verdana'>"+"Alte Gesamtdistanz: "+ gesamtDistKMAlt+ " km.    Alte Gesamtzeit: "+ gesamtZeitMinAlt+" Minuten"+"</p>"+"<hr>";
+                    outputDiv.innerHTML += "<p>"+"Alte Gesamtdistanz: "+ gesamtDistKMAlt+ " km.    Alte Gesamtzeit: "+ gesamtZeitMinAlt+" Minuten"+"</p>"+"<hr>";
                     outputDiv.innerHTML += "Neue Gesamtdistanz bei der kürzesten Strecke: "+ minDist[0].GesamtStrecke +" km.    Neue Gesamtzeit bei der kürzesten Strecke: "+ minDist[0].GesamtZeit+"<br>"+ "Die Zeitersparnis beträgt: "+zeitGesErsparnisDistMin+" Minuten und die Streckenersparnis beträgt: "+ distanzGesErsparnisDistMin+" km."+"<hr>";
                     outputDiv.innerHTML += "Neue Gesamtdistanz bei der schnellsten Strecke: "+ minTime[0].GesamtStrecke +" km.    Neue Gesamtzeit bei der schnellsten Strecke: "+ minTime[0].GesamtZeit+"<br>"+ "Die Zeitersparnis beträgt: "+zeitGesErsparnisZeitMin+" Minuten und die Streckenersparnis beträgt: "+ distanzGesErsparnisZeitMin+" km."+"<hr>";"<hr>" ;
                 }
