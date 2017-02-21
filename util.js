@@ -44,9 +44,6 @@ function addOldpoint(eingabe) {
     return eintrag;
     }
 
-
-
-
 // hier werden die ganzen möglichen Start punkte angegebe
 
 
@@ -54,30 +51,16 @@ function addOldpoint(eingabe) {
 
     function addOrigins(eingabe) {
     var eintrag = document.getElementById(eingabe).value;
-	eintrag = eintrag.replace(/\t/g, ';');
+//	eintrag = eintrag.replace(/\t/g, ';');
     zeilen = eintrag.split("\n");
     var sets = [];
-
     for (var i = 0; zeilen.length > i; i++) {
         var b = zeilen[i].split(";");
         sets.push(b);
-
     }
     return sets;
 }
-function addOrigins2(eingabe) {
-    var eintrag = document.getElementById(eingabe).value;
-    eintrag = eintrag.replace(/\t/g, ',');
-    zeilen = eintrag.split("\n");
-    var sets = [];
 
-    for (var i = 0; zeilen.length > i; i++) {
-        var b = zeilen[i].split(",");
-        sets.push(b);
-
-    }
-    return sets;
-}
 function alpha(setter) {
         var startpunkte = [];
         var sets2 = setter;
@@ -112,7 +95,7 @@ function beta(setter) {
 
 
 }
-function initMap(ori, desti,idi) {
+function initMap(ori,desti,idi) {
         var bounds = new google.maps.LatLngBounds;
         var markersArray = [];
 
@@ -121,23 +104,17 @@ function initMap(ori, desti,idi) {
         var destinationA = ori;
         var destinationB = desti;
         var ortsAuszeichnung = idi;
-        /*    console.log(destinationA);
-         console.log(destinationA[1]);
-         console.log(destinationA[3].lat);
-         console.log(destinationB);
-         console.log(destinationB[1]);
-         console.log(destinationB[1].lat);
-         */
+
 
         var destinationIcon = 'https://chart.googleapis.com/chart?' +
             'chst=d_map_pin_letter&chld=D|FF0000|000000';
         var originIcon = 'https://chart.googleapis.com/chart?' +
             'chst=d_map_pin_letter&chld=O|FFFF00|000000';
         var map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 51.234, lng: 13.2323},
+            center: {lat: destinationA[1][1], lng: destinationA[1][2]},
             zoom: 10
         });
-        var geocoder = new google.maps.Geocoder;
+//        var geocoder = new google.maps.Geocoder;
 
         var service = new google.maps.DistanceMatrixService;
         service.getDistanceMatrix({
@@ -157,8 +134,8 @@ function initMap(ori, desti,idi) {
                     var outputDiv = document.getElementById('output');
                     outputDiv.innerHTML = '';
                     deleteMarkers(markersArray);
-
-                   /* var showGeocodedAddressOnMap = function (asDestination) {
+/*
+                   var showGeocodedAddressOnMap = function (asDestination) {
                         var icon = asDestination ? destinationIcon : originIcon;
                         return function (results, status) {
                             if (status === google.maps.GeocoderStatus.OK) {
@@ -172,7 +149,9 @@ function initMap(ori, desti,idi) {
                                 alert('Geocode was not successful due to: ' + status);
                             }
                        };
-                    };*/ 
+                    };
+                    geocoder.geocode({'lat': originList[0][1],'lang': originList[0][2]},
+                        showGeocodedAddressOnMap(true)); */
                     var distanzKummuliert = 0;
                     var zeitKummuliert = 0;
                     var distanzArray = [];
@@ -180,6 +159,7 @@ function initMap(ori, desti,idi) {
                     var zeitAlt= 0;
                     //Ermittlung der durchschnittlichen Distanz für den Originalstandort
                     var resultAlt = response.rows[0].elements;
+
                     for(var k=0 ; k < resultAlt.length; k++){
                        // geocoder.geocode({'address': destinationList[k]},
                          //   showGeocodedAddressOnMap(false));
@@ -199,8 +179,7 @@ function initMap(ori, desti,idi) {
                         //Ermittlung der Orign und Destination Werte
                     for (var i = 0; i < originList.length; i++) {
                         var results = response.rows[i].elements;
-                        //geocoder.geocode({'address': originList[i]},
-                           // showGeocodedAddressOnMap(true));
+
                         //console.log(results[3].distance.text)
                         for (var j = 0; j < results.length; j++) {
                            // geocoder.geocode({'address': destinationList[j]},
