@@ -2,6 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="Distance API Vorlage" type="HTML" />
+      <mapping ext="geojson" type="JSON Schema" />
     </extensionMap>
   </component>
 </application>
