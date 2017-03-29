@@ -1,0 +1,15 @@
+<application>
+  <component name="libraryTable">
+    <library name="mapbox" type="javaScript">
+      <properties>
+        <sourceFilesUrls>
+          <item url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_api.mapbox.com_mapbox.js_v3.0.1_mapbox.js" />
+        </sourceFilesUrls>
+      </properties>
+      <CLASSES>
+        <root url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_api.mapbox.com_mapbox.js_v3.0.1_mapbox.js" />
+      </CLASSES>
+      <SOURCES />
+    </library>
+  </component>
+</application>
