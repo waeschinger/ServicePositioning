@@ -3,6 +3,7 @@
     <extensionMap>
       <mapping pattern="Distance API Vorlage" type="HTML" />
       <mapping ext="geojson" type="JSON Schema" />
+      <mapping ext="webapp" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>
